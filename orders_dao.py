@@ -33,24 +33,21 @@ def insert_orders(connection, order):
 def get_order_details(connection, order_id):
     cursor = connection.cursor()
 
-    query = "SELECT * from order_details where order_id = %s"
-
     query = "SELECT order_details.order_id, order_details.quantity, order_details.total_price, "\
             "product.name, product.price_per_unit FROM order_details LEFT JOIN product on " \
-            "order_details.product_id = product.product_id where order_details.order_id = %s"
+            "order_details.product_id = product.product_id where order_details.order_id ="+str(order_id)
 
-    data = (order_id, )
-
-    cursor.execute(query, data)
+    cursor.execute(query)
+    result = cursor.fetchall()
 
     records = []
-    for (order_id, quantity, total_price, product_name, price_per_unit) in cursor:
+    for data in result:
         records.append({
-            'order_id': order_id,
-            'quantity': quantity,
-            'total_price': total_price,
-            'product_name': product_name,
-            'price_per_unit': price_per_unit
+            'order_id': data[0],
+            'quantity': data[1],
+            'total_price': data[2],
+            'product_name': data[3],
+            'price_per_unit': data[4]
         })
 
     cursor.close()
@@ -61,13 +58,14 @@ def get_all_order(connection):
     cursor = connection.cursor()
     query = ("SELECT * FROM orders")
     cursor.execute(query)
+    result = cursor.fetchall()
     response = []
-    for (order_id, customer_name, total, dt) in cursor:
+    for data in result:
         response.append({
-            'order_id': order_id,
-            'customer_name': customer_name,
-            'total': total,
-            'datetime': dt,
+            'order_id': data[0],
+            'customer_name': data[1],
+            'total': data[2],
+            'datetime': data[3],
         })
 
     cursor.close()

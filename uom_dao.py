@@ -3,11 +3,12 @@ def get_uoms(connection):
     cursor = connection.cursor()
     query = ("select * from uom")
     cursor.execute(query)
+    result = cursor.fetchall()
     response = []
-    for (uom_id, uom_name) in cursor:
+    for data in result:
         response.append({
-            'uom_id': uom_id,
-            'uom_name': uom_name
+            'uom_id': data[0],
+            'uom_name': data[1]
         })
     return response
 

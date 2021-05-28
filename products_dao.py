@@ -4,14 +4,15 @@ def get_all_product(connection):
     cursor = connection.cursor()
     query = ("select product.product_id, product.name, product.uom_id, product.price_per_unit, uom.uom_name from product inner join uom on product.uom_id=uom.uom_id")
     cursor.execute(query)
+    result = cursor.fetchall()
     response = []
-    for (product_id, name, uom_id, price_per_unit, uom_name) in cursor:
+    for data in result:
         response.append({
-            'product_id': product_id,
-            'name': name,
-            'uom_id': uom_id,
-            'price_per_unit': price_per_unit,
-            'uom_name': uom_name
+            'product_id': data[0],
+            'name': data[1],
+            'uom_id': data[2],
+            'price_per_unit': data[3],
+            'uom_name': data[4]
         })
     return response
 

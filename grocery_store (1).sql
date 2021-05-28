@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2021 at 05:23 PM
+-- Generation Time: May 28, 2021 at 06:49 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -31,17 +31,20 @@ CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `customer_name` varchar(45) NOT NULL,
   `total` double NOT NULL,
-  `datetime` varchar(45) NOT NULL
+  `datetime` datetime NOT NULL,
+  `orderscol` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `customer_name`, `total`, `datetime`) VALUES
-(1, 'daman', 100, ''),
-(2, 'daman', 3e38, '2021-05-27 20:39:20.023618'),
-(3, 'ravi', 300, '2021-05-27 20:40:07.384884');
+INSERT INTO `orders` (`order_id`, `customer_name`, `total`, `datetime`, `orderscol`) VALUES
+(6, 'Mehtaab', 428, '2021-05-28 19:31:59', NULL),
+(7, 'harleen', 4900, '2021-05-28 19:36:28', NULL),
+(8, 'daman', 100, '2021-05-28 21:35:24', NULL),
+(9, 'Amy Brewer', 13860, '2021-05-28 21:52:28', NULL),
+(10, 'Daman', 4730, '2021-05-28 22:02:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -62,9 +65,15 @@ CREATE TABLE `order_details` (
 --
 
 INSERT INTO `order_details` (`order_id`, `product_id`, `quantity`, `total_price`, `id`) VALUES
-(1, 2, 1, 100, 1),
-(2, 3, 3, 3e38, 2),
-(3, 2, 3, 300, 3);
+(6, 8, 2, 200, 8),
+(6, 13, 1, 166, 9),
+(7, 12, 1, 100, 10),
+(7, 16, 1, 170, 11),
+(7, 18, 10, 4630, 12),
+(8, 8, 1, 100, 13),
+(9, 23, 462, 13860, 14),
+(10, 8, 1, 100, 15),
+(10, 18, 10, 4630, 16);
 
 -- --------------------------------------------------------
 
@@ -84,8 +93,23 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `name`, `uom_id`, `price_per_unit`) VALUES
-(2, 'dal', 2, 100),
-(3, 'Bhupen', 1, 1e38);
+(8, 'Basmati Rice', 1, 100),
+(9, 'Moong Dal', 1, 130),
+(10, 'Chana Dal', 1, 110),
+(11, 'Mix Dal', 1, 117),
+(12, 'Black Dal', 1, 100),
+(13, 'Rajma', 1, 166),
+(14, 'Black Chana', 1, 85),
+(15, 'White Chana', 1, 130),
+(16, 'Rice Oil ', 3, 170),
+(17, 'Mustard Oil', 3, 161),
+(18, 'Cow Ghee', 3, 463),
+(19, 'Toothpaste', 4, 50),
+(20, 'Bathing Soap', 4, 30),
+(21, 'Dettol Handwash', 4, 150),
+(22, 'Sanitizer', 6, 50),
+(23, 'Face Mask (Cotton)', 4, 30),
+(24, 'Face Mask (N95)', 4, 200);
 
 -- --------------------------------------------------------
 
@@ -107,7 +131,8 @@ INSERT INTO `uom` (`uom_id`, `uom_name`) VALUES
 (2, 'pound'),
 (3, 'liter'),
 (4, 'each'),
-(5, 'gram');
+(5, 'gram'),
+(6, '100ml');
 
 --
 -- Indexes for dumped tables
@@ -147,19 +172,19 @@ ALTER TABLE `uom`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_details`
 --
 ALTER TABLE `order_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables
